@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سوقنا - Suqna 2026</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- شريط التنقل العلوي -->
+    <nav>
+        <div class="logo" onclick="filterByCategory('الكل')">🛒 سوقنا</div>
+        <div class="nav-links">
+            <button onclick="filterByCategory('الكل')" class="nav-btn">الرئيسية</button>
+            <button onclick="navigate('addItem')" id="btnAddItem" class="nav-btn add-btn" style="display:none;">+ أضف إعلانك</button>
+            <button onclick="navigate('login')" id="btnLogin" class="nav-btn">تسجيل الدخول</button>
+            <button onclick="logout()" id="btnLogout" class="nav-btn logout-btn" style="display:none;">تسجيل الخروج</button>
+            <button id="themeToggle" class="theme-btn">🌙</button>
+        </div>
+    </nav>
+
+    <!-- الصفحة الرئيسية -->
+    <section id="home" class="page active">
+        
+        <!-- شاشة الترحيب -->
+        <div class="hero-section">
+            <h1>مرحباً بك في <span>سوقنا - Suqna 2026</span></h1>
+            <p>المنصة الأذكى لبيع وشراء الأدوات والمنتجات المستعملة والجديدة بكل سهولة</p>
+        </div>
+
+        <!-- شريط البحث والفلترة حسب المنطقة -->
+        <div class="search-filter-bar">
+            <input type="text" id="searchInput" placeholder="🔍 ابحث عن أي منتج..." oninput="searchProducts()">
+            <select id="regionFilter" onchange="searchProducts()">
+                <option value="">جميع المحافظات / المناطق</option>
+                <option value="القاهرة">القاهرة</option>
+                <option value="الجيزة">الجيزة</option>
+                <option value="الإسكندرية">الإسكندرية</option>
+                <option value="المنصورة">المنصورة</option>
+                <option value="أسيوط">أسيوط</option>
+                <option value="الشرقية">الشرقية</option>
+                <option value="أخرى">منطقة أخرى</option>
+            </select>
+        </div>
+
+        <!-- تخطيط الصفحة الرئيسية: شريط جانبي للأقسام + شبكة المنتجات -->
+        <div class="main-layout">
+            
+            <!-- الشريط الجانبي للأقسام -->
+            <aside class="sidebar">
+                <h3>📂 أقسام المنتجات</h3>
+                <ul>
+                    <li onclick="filterByCategory('الكل')" class="active-cat">🌟 كل الفئات</li>
+                    <li onclick="filterByCategory('ملابس')">👕 ملابس وأزياء</li>
+                    <option></option>
+                    <li onclick="filterByCategory('أدوات منزلية')">🏠 أدوات منزلية</li>
+                    <li onclick="filterByCategory('ألعاب')">🎮 ألعاب وترفيه</li>
+                    <li onclick="filterByCategory('إلكترونيات')">💻 إلكترونيات وموبايلات</li>
+                    <li onclick="filterByCategory('سيارات ومركبات')">🚗 سيارات ومركبات</li>
+                    <li onclick="filterByCategory('أثاث وديكور')">🛋️ أثاث وديكور</li>
+                    <li onclick="filterByCategory('كتب وادوات دراسية')">📚 كتب وأدوات دراسية</li>
+                    <li onclick="filterByCategory('أخرى')">📦 منوعات أخرى</li>
+                </ul>
+            </aside>
+
+            <!-- محتوى المنتجات -->
+            <div class="content-area">
+                <div class="section-title">
+                    <h2 id="categoryTitle">🔥 أحدث الإعلانات</h2>
+                </div>
+                <div class="products-grid" id="productsList">
+                    <!-- سيتم تحميل المنتجات هنا برمجياً -->
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- صفحة تسجيل الدخول -->
+    <section id="login" class="page">
+        <div class="form-container">
+            <h2>تسجيل الدخول / حساب جديد</h2>
+            <p>انضم إلينا لتبدأ في عرض منتجاتك وإدارتها</p>
+            <input type="email" id="email" placeholder="✉️ البريد الإلكتروني">
+            <input type="password" id="password" placeholder="🔒 كلمة المرور">
+            <div class="form-buttons">
+                <button onclick="login()" class="primary-btn">دخول</button>
+                <button onclick="register()" class="secondary-btn">إنشاء حساب جديد</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- صفحة إضافة منتج -->
+    <section id="addItem" class="page">
+        <div class="form-container">
+            <h2>أضف إعلانك الجديد</h2>
+            <input type="text" id="title" placeholder="📦 اسم المنتج (مثال: لابتوب ديل كور إي سفن)">
+            
+            <!-- اختيار القسم -->
+            <select id="category">
+                <option value="ملابس">👕 ملابس وأزياء</option>
+                <option value="أدوات منزلية">🏠 أدوات منزلية</option>
+                <option value="ألعاب">🎮 ألعاب وترفيه</option>
+                <option value="إلكترونيات">💻 إلكترونيات وموبايلات</option>
+                <option value="سيارات ومركبات">🚗 سيارات ومركبات</option>
+                <option value="أثاث وديكور">🛋️ أثاث وديكور</option>
+                <option value="كتب وادوات دراسية">📚 كتب وأدوات دراسية</option>
+                <option value="أخرى">📦 منوعات أخرى</option>
+            </select>
+
+            <!-- اختيار المنطقة -->
+            <select id="region">
+                <option value="القاهرة">القاهرة</option>
+                <option value="الجيزة">الجيزة</option>
+                <option value="الإسكندرية">الإسكندرية</option>
+                <option value="المنصورة">المنصورة</option>
+                <option value="أسيوط">أسيوط</option>
+                <option value="الشرقية">الشرقية</option>
+                <option value="أخرى">منطقة أخرى</option>
+            </select>
+
+            <textarea id="description" placeholder="📝 تفاصيل المنتج وحالته (مستعمل بحالة ممتازة...الخ)"></textarea>
+            <input type="number" id="price" placeholder="💵 السعر (بالجنيه)">
+            <input type="tel" id="phone" placeholder="📞 رقم الهاتف للتواصل المباشر">
+            <input type="tel" id="whatsapp" placeholder="💬 رقم واتساب للتواصل (اختياري)">
+            
+            <label for="image" class="file-label">📸 اختر صورة واضحة للمنتج</label>
+            <input type="file" id="image" accept="image/*">
+            
+            <button onclick="addProduct()" class="primary-btn add-btn-large">انشر الإعلان الآن ✅</button>
+        </div>
+    </section>
+
+    <!-- حقوق المطور في تذييل الصفحة -->
+    <footer>
+        <p>جميع الحقوق محفوظة &copy; <strong>Suqna 2026</strong> - المنصة الذكية للإعلانات المستعملة والجديدة.</p>
+    </footer>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
